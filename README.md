@@ -3,7 +3,8 @@
 
 ##Initial settings (new user, sudo and ssh)
 
-1. Buy Centos 7 ( i use infobox.ru )
+1. Buy Centos 7
+
 2. Update Centos 7
 
         yum clean all && yum update
@@ -39,4 +40,49 @@
 
         sudo systemctl reload sshd
 
-##DataBase settings (PostgreSQL)
+##Python3, pip, virtualenv
+
+1. Enable the EPEL
+
+        sudo yum install epel-release
+
+2. Install development tools for isntalling Python3 from source and some packeges
+
+        sudo yum groupinstall -y 'development tools'
+        sudo yum install -y zlib-dev openssl-devel sqlite-devel bzip2-devel xz-libs
+
+3. Download Python's 3.4. sources
+
+        cd ~/
+        wget https://www.python.org/ftp/python/3.4.3/Python-3.4.3.tar.xz
+
+4. Extract, configuring and installation
+
+        xz -d Python-3.4.3.tar.xz
+        tar -xvf Python-3.4.3.tar
+        cd Python-3.4.3
+        sudo ./configure --prefix=/usr/local --enable-shared LDFLAGS="-Wl,-rpath /usr/local/lib"
+        sudo make && sudo make altinstall
+
+5. Update pip
+
+        sudo /usr/local/bin/python3.4 -m pip install -U pip
+        
+6. Install virtualenv
+
+        sudo /usr/local/bin/python3.4 -m pip install -U pip
+        
+7. Creating environment
+
+        cd ~/
+        virtualenv django_app
+        
+8. Activating a virtual environment
+
+        source django_app/bin/activate
+
+9. Deactivating a virtual environment
+
+        deactivate 
+        
+        
