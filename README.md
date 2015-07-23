@@ -88,14 +88,14 @@
 
         sudo nano /var/lib/pgsql/data/pg_hba.conf
 
-*in /var/lib/pgsql/data/pg_hba.conf set md5*
+    *in /var/lib/pgsql/data/pg_hba.conf set md5*
 
         # IPv4 local connections:
         host    all             all             127.0.0.1/32            md5
         # IPv6 local connections:
         host    all             all             ::1/128                 md5
         
-*restart service PostgreSQL*
+    *restart service PostgreSQL*
 
         sudo systemctl restart postgresql
         sudo systemctl enable postgresql
