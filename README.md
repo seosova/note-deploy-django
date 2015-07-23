@@ -69,17 +69,68 @@
 
         sudo /usr/local/bin/python3.4 -m pip install -U pip
         
-7. Creating environment
+        
+##PostgreSQL and nginx
+
+1. Install PostgreSQL
+
+        sudo yum install postgresql-server postgresql-devel postgresql-contrib gcc nginx
+        
+2. Initialize PostgreSQL
+
+        sudo postgresql-setup initdb
+
+3. Start PostgreSQL
+
+        sudo systemctl start postgresql
+        
+4. Configurated PostgreSQL
+
+        sudo nano /var/lib/pgsql/data/pg_hba.conf
+
+*in /var/lib/pgsql/data/pg_hba.conf set md5*
+
+        # IPv4 local connections:
+        host    all             all             127.0.0.1/32            md5
+        # IPv6 local connections:
+        host    all             all             ::1/128                 md5
+        
+*restart service PostgreSQL*
+
+        sudo systemctl restart postgresql
+        sudo systemctl enable postgresql
+
+5. Create the PostgreSQL Database and User
+
+        sudo su - postgres
+        psql
+        CREATE DATABASE django_base;
+        CREATE USER django_user WITH PASSWORD 'password';
+        GRANT ALL PRIVILEGES ON DATABASE django_base TO django_user;
+        \q
+        exit
+
+##Create and configure a new Django Project
+
+1. Create directory
 
         cd ~/
-        virtualenv django_app
-        
-8. Activating a virtual environment
+        mkdir django_app/
 
-        source django_app/bin/activate
+2. Creating environment
 
-9. Deactivating a virtual environment
+        cd ~/django_app
+        virtualenv django_env
+        
+3. Activating a virtual environment
 
-        deactivate 
-        
-        
+        source django_env/bin/activate
+
+4. Install Django, Gunicorn and psycorg2
+
+        pip install django gunicorn psycopg2
+
+5. Create Django project in current directory ( dot in the end of command )
+
+        django-admin.py startproject myproject .
+
