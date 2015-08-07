@@ -71,7 +71,7 @@
         sudo /usr/local/bin/python3.4 -m pip install virtualenv
         
         
-##PostgreSQL and nginx
+##PostgreSQL
 
 1. All comand
 
